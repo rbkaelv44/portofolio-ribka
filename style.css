@@ -1,0 +1,104 @@
+/* =========================================================
+   style.css — ELVARIA RIBKA High-Tech Obsidian Portfolio
+========================================================= */
+
+/* Base & Sleek Black / Obsidian Atmospheric Background */
+body {
+  background-color: #050505;
+  color: #F4F4F5;
+  background-image:
+    radial-gradient(circle at 10% 12%, rgba(255, 255, 255, 0.05) 0%, transparent 42%),
+    radial-gradient(circle at 90% 18%, rgba(161, 161, 170, 0.06) 0%, transparent 40%),
+    radial-gradient(circle at 20% 75%, rgba(244, 244, 245, 0.04) 0%, transparent 45%),
+    radial-gradient(circle at 85% 88%, rgba(113, 113, 122, 0.06) 0%, transparent 45%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+/* Interactive TJKT Network Canvas */
+#network-canvas {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* High-Tech Dark Glassmorphism Card */
+.glass-panel {
+  background: rgba(18, 18, 22, 0.82);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow:
+    0 18px 40px -12px rgba(0, 0, 0, 0.85),
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.12);
+}
+
+/* 3D Interactive Tilt Card */
+.tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.22s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.28s ease, border-color 0.28s ease;
+}
+
+.tilt-card:hover {
+  box-shadow:
+    0 26px 48px -12px rgba(0, 0, 0, 0.9),
+    0 0 0 1px rgba(244, 244, 245, 0.38);
+  border-color: rgba(244, 244, 245, 0.45);
+}
+
+/* Glowing Silver-Platinum Profile Frame */
+@keyframes cyberGlow {
+  0%, 100% {
+    box-shadow:
+      0 0 24px rgba(255, 255, 255, 0.18),
+      0 0 50px rgba(161, 161, 170, 0.12);
+  }
+  50% {
+    box-shadow:
+      0 0 36px rgba(255, 255, 255, 0.32),
+      0 0 68px rgba(212, 212, 216, 0.2);
+  }
+}
+
+.hero-frame-glow {
+  animation: cyberGlow 4s ease-in-out infinite;
+}
+
+/* Subtle Floating Animation for Welcome Pill */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-4px); }
+}
+
+.animate-float {
+  animation: floatSlow 3.6s ease-in-out infinite;
+}
+
+/* Skill Pill Interactive Micro-elevation */
+.skill-pill {
+  transition: all 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.skill-pill:hover {
+  transform: translateY(-2px) scale(1.02);
+  box-shadow:
+    0 10px 22px -6px rgba(0, 0, 0, 0.8),
+    0 0 0 1px rgba(255, 255, 255, 0.28);
+}
+
+/* Custom Dark Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0D;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #52525B, #A1A1AA);
+  border-radius: 9999px;
+}

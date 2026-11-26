@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="id" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ELVARIA RIBKA | High-Tech Portfolio</title>
+
+  <!-- Google Fonts: Plus Jakarta Sans, Inter, & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind Custom Palette & Typography Configuration -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            display: ['Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+          },
+          colors: {
+            obsidian: '#050505',
+            charcoal: '#121216',
+            graphite: '#1A1A22',
+            slateborder: '#2A2A36',
+            silver: '#D4D4D8',
+            platinum: '#F4F4F5',
+            metallic: '#A1A1AA',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- External Custom Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="antialiased selection:bg-white/25 selection:text-white">
+
+  <!-- Interactive TJKT Particle Network Background -->
+  <canvas id="network-canvas" aria-hidden="true"></canvas>
+
+  <!-- HEADER & BILINGUAL SWITCHER (ID | EN) -->
+  <header class="sticky top-0 z-40 border-b border-white/10 bg-obsidian/80 backdrop-blur-xl transition-all">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 sm:h-18 flex items-center justify-between">
+      <a href="#home" class="flex items-center group">
+        <span class="font-display font-extrabold bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent tracking-tight text-base sm:text-lg leading-none group-hover:opacity-90 transition-opacity">
+          ELVARIA RIBKA
+        </span>
+      </a>
+
+      <nav class="hidden md:flex items-center gap-1 lg:gap-2 text-sm font-medium text-zinc-300">
+        <a href="#about" class="px-3.5 py-2 rounded-xl hover:bg-white/10 hover:text-white transition-colors" data-i18n="nav_about">Tentang Saya</a>
+        <a href="#projects" class="px-3.5 py-2 rounded-xl hover:bg-white/10 hover:text-white transition-colors" data-i18n="nav_projects">Projek</a>
+        <a href="#skills" class="px-3.5 py-2 rounded-xl hover:bg-white/10 hover:text-white transition-colors" data-i18n="nav_skills">Skill</a>
+        <a href="#certificates" class="px-3.5 py-2 rounded-xl hover:bg-white/10 hover:text-white transition-colors" data-i18n="nav_certs">Sertifikat</a>
+        <a href="#contact" class="px-3.5 py-2 rounded-xl hover:bg-white/10 hover:text-white transition-colors" data-i18n="nav_contact">Kontak</a>
+      </nav>
+
+      <div class="flex items-center gap-2.5">
+        <div class="inline-flex items-center p-1 rounded-full bg-graphite border border-white/15 shadow-inner" role="group" aria-label="Language Switcher">
+          <button
+            id="btn-lang-id"
+            type="button"
+            onclick="setLanguage('id')"
+            class="px-3 py-1 rounded-full text-xs font-bold tracking-wide transition-all duration-200 bg-gradient-to-r from-white to-zinc-300 text-obsidian shadow-sm"
+          >
+            ID
+          </button>
+          <button
+            id="btn-lang-en"
+            type="button"
+            onclick="setLanguage('en')"
+            class="px-3 py-1 rounded-full text-xs font-bold tracking-wide transition-all duration-200 text-zinc-400 hover:text-white"
+          >
+            EN
+          </button>
+        </div>
+
+        <button
+          id="mobile-menu-btn"
+          type="button"
+          onclick="toggleMobileMenu()"
+          class="md:hidden p-2.5 rounded-xl bg-graphite border border-white/15 text-platinum hover:bg-white/10 transition-colors"
+          aria-label="Toggle Menu"
+        >
+          <i id="mobile-menu-icon" class="fa-solid fa-bars text-base"></i>
+        </button>
+      </div>
+    </div>
+
+    <div id="mobile-menu" class="hidden md:hidden border-t border-white/10 bg-charcoal/95 backdrop-blur-xl px-4 py-3 space-y-1">
+      <a href="#about" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:bg-white/10 hover:text-white" data-i18n="nav_about">Tentang Saya</a>
+      <a href="#projects" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:bg-white/10 hover:text-white" data-i18n="nav_projects">Projek</a>
+      <a href="#skills" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:bg-white/10 hover:text-white" data-i18n="nav_skills">Skill</a>
+      <a href="#certificates" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:bg-white/10 hover:text-white" data-i18n="nav_certs">Sertifikat</a>
+      <a href="#contact" onclick="closeMobileMenu()" class="block px-4 py-2.5 rounded-xl text-sm font-semibold text-zinc-200 hover:bg-white/10 hover:text-white" data-i18n="nav_contact">Kontak</a>
+    </div>
+  </header>
+
+  <!-- Main Content Container -->
+  <main class="relative z-10 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 space-y-16 sm:space-y-24">
+
+    <!-- HERO SECTION -->
+    <section id="home" class="glass-panel rounded-3xl p-6 sm:p-10 lg:p-14 relative overflow-hidden">
+      <div class="absolute -top-24 -right-24 w-72 h-72 rounded-full bg-white/[0.04] blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-zinc-400/[0.05] blur-3xl pointer-events-none"></div>
+
+      <div class="relative z-10 flex flex-col md:flex-row items-center gap-8 md:gap-12 lg:gap-16">
+        <div class="shrink-0 relative group">
+          <div class="absolute -inset-2.5 rounded-[30px] border border-white/20 pointer-events-none group-hover:scale-105 transition-transform duration-500"></div>
+
+          <div class="relative w-48 h-48 sm:w-56 sm:h-56 lg:w-64 lg:h-64 rounded-3xl p-1.5 bg-gradient-to-tr from-zinc-600 via-white to-zinc-400 hero-frame-glow">
+            <img
+              src="pp.jpeg"
+              alt="Foto Profil ELVARIA RIBKA"
+              onerror="handleImageFallback(this, 'pp.jpeg', '500x500')"
+              class="w-full h-full object-cover rounded-[20px] bg-graphite"
+            />
+
+            <div class="absolute -bottom-3.5 left-1/2 -translate-x-1/2 whitespace-nowrap px-4 py-1.5 rounded-full bg-charcoal/95 backdrop-blur border border-white/20 shadow-lg flex items-center gap-2">
+              <span class="relative flex h-2.5 w-2.5">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-white opacity-75"></span>
+                <span class="relative inline-flex rounded-full h-2.5 w-2.5 bg-white"></span>
+              </span>
+              <span class="font-mono text-xs font-bold text-platinum tracking-tight" data-i18n="hero_status">AKTIF • SMKN 1 BLITAR</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex-1 text-center md:text-left space-y-5">
+          <div class="inline-flex items-center gap-2.5 px-4 py-2 rounded-full bg-gradient-to-r from-graphite to-charcoal border border-white/20 text-platinum text-xs sm:text-sm font-bold shadow-sm animate-float">
+            <i class="fa-solid fa-sparkles text-silver"></i>
+            <span data-i18n="hero_welcome">Selamat Datang</span>
+          </div>
+
+          <div class="space-y-2">
+            <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-[1.1]">
+              <span class="bg-gradient-to-r from-white via-zinc-200 to-zinc-400 bg-clip-text text-transparent">
+                ELVARIA RIBKA
+              </span>
+            </h1>
+            <p class="font-display text-base sm:text-xl font-bold text-silver" data-i18n="hero_role">
+              Siswa TJKT SMKN 1 Blitar & Anggota Aktif Paskibra
+            </p>
+          </div>
+
+          <p class="text-zinc-400 text-sm sm:text-base lg:text-lg max-w-2xl leading-relaxed" data-i18n="hero_sub">
+            Memadukan ketelitian rekayasa jaringan komputer dan basis data dengan ketangguhan, kedisiplinan, serta mentalitas juara di arena perlombaan Paskibra.
+          </p>
+
+          <div class="pt-2 flex flex-wrap items-center justify-center md:justify-start gap-3">
+            <a
+              href="#projects"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-gradient-to-r from-white via-zinc-100 to-zinc-300 text-obsidian font-display font-bold text-sm shadow-lg shadow-white/10 hover:shadow-white/25 hover:-translate-y-0.5 transition-all"
+            >
+              <i class="fa-solid fa-layer-group"></i>
+              <span data-i18n="hero_cta_proj">Lihat Projek Saya</span>
+            </a>
+            <a
+              href="#certificates"
+              class="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-graphite/90 hover:bg-white/10 text-platinum border border-white/15 font-display font-bold text-sm shadow-sm hover:-translate-y-0.5 transition-all"
+            >
+              <i class="fa-solid fa-award text-silver"></i>
+              <span data-i18n="hero_cta_cert">Galeri Sertifikat</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ABOUT ME -->
+    <section id="about" class="scroll-mt-24">
+      <div class="glass-panel rounded-3xl p-6 sm:p-10 relative overflow-hidden">
+        <div class="absolute top-0 left-0 bottom-0 w-1.5 bg-gradient-to-b from-white via-zinc-400 to-zinc-700"></div>
+
+        <div class="space-y-6">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+            <div>
+              <span class="font-mono text-xs font-bold uppercase tracking-widest text-metallic" data-i18n="about_tag">01 // PROFIL DIRI</span>
+              <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-platinum mt-1" data-i18n="about_title">Tentang Saya</h2>
+            </div>
+            <span class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-graphite border border-white/15 text-xs font-semibold text-zinc-200 self-start sm:self-auto">
+              <i class="fa-solid fa-location-dot text-silver"></i>
+              <span>Blitar, Jawa Timur</span>
+            </span>
+          </div>
+
+          <p class="text-zinc-300 text-base sm:text-lg leading-relaxed" data-i18n="about_desc">
+            Halo! Saya Elvaria Ribka, siswa aktif di SMKN 1 Blitar jurusan TJKT (Teknik Jaringan Komputer dan Telekomunikasi) sekaligus anggota aktif Paskibra yang telah banyak mengikuti berbagai ajang perlombaan. Perpaduan dunia teknologi jaringan dengan latihan baris-berbaris yang ketat membentuk saya menjadi pribadi yang disiplin, sigap memecahkan masalah, teliti dalam bekerja, serta solid dalam kolaborasi tim.
+          </p>
+
+          <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-charcoal to-graphite border border-white/10 flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center shrink-0 text-lg">
+                <i class="fa-solid fa-network-wired"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-platinum text-sm" data-i18n="pillar_1_title">Jurusan TJKT</h3>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed" data-i18n="pillar_1_desc">SMKN 1 Blitar — Jaringan komputer, server, & sistem basis data.</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-charcoal to-graphite border border-white/10 flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center shrink-0 text-lg">
+                <i class="fa-solid fa-flag"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-platinum text-sm" data-i18n="pillar_2_title">Aktif Paskibra</h3>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed" data-i18n="pillar_2_desc">Berpengalaman mengikuti berbagai perlombaan tingkat kompetitif.</p>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-gradient-to-br from-charcoal to-graphite border border-white/10 flex items-start gap-3.5">
+              <div class="w-10 h-10 rounded-xl bg-white/10 text-white flex items-center justify-center shrink-0 text-lg">
+                <i class="fa-solid fa-shield-halved"></i>
+              </div>
+              <div>
+                <h3 class="font-display font-bold text-platinum text-sm" data-i18n="pillar_3_title">Disiplin & Tangguh</h3>
+                <p class="text-xs text-zinc-400 mt-0.5 leading-relaxed" data-i18n="pillar_3_desc">Fokus pada ketepatan eksekusi, tanggung jawab, dan kerja sama tim.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJEK SAYA -->
+    <section id="projects" class="scroll-mt-24 space-y-6">
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-metallic" data-i18n="proj_tag">02 // KARYA TEKNOLOGI</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-platinum mt-1" data-i18n="proj_title">Projek Saya</h2>
+        </div>
+        <p class="text-xs sm:text-sm text-zinc-400" data-i18n="proj_hint">Arahkan kursor untuk efek 3D atau klik gambar untuk pratinjau penuh</p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+        <!-- Project 1: Aplikasi Kasir -->
+        <article class="glass-panel tilt-card rounded-3xl overflow-hidden flex flex-col justify-between group" data-tilt>
+          <div>
+            <div
+              class="relative aspect-video bg-graphite overflow-hidden cursor-pointer"
+              onclick="openStandaloneLightbox('kasir.jpeg', getT('proj_1_title'), getT('proj_1_desc'))"
+            >
+              <img
+                src="kasir.jpeg"
+                alt="Aplikasi Kasir - kasir.jpeg"
+                onerror="handleImageFallback(this, 'kasir.jpeg', '800x450')"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
+                <span class="font-mono text-xs text-zinc-200 bg-obsidian/80 backdrop-blur border border-white/15 px-2.5 py-1 rounded-lg">
+                  kasir.jpeg
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-obsidian text-xs font-bold shadow-md">
+                  <i class="fa-solid fa-expand"></i>
+                  <span data-i18n="btn_preview">Preview Gambar</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-silver font-mono text-xs font-bold">
+                  POINT OF SALE
+                </span>
+                <i class="fa-solid fa-cash-register text-silver text-lg"></i>
+              </div>
+
+              <h3 class="font-display text-xl sm:text-2xl font-bold text-platinum" data-i18n="proj_1_title">
+                Aplikasi Kasir
+              </h3>
+
+              <p class="text-zinc-400 text-sm leading-relaxed" data-i18n="proj_1_desc">
+                Aplikasi sistem kasir digital untuk mengelola transaksi penjualan secara cepat, menghitung total pembayaran & kembalian otomatis, memantau stok produk, serta mencetak rincian struk transaksi.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between gap-3 border-t border-white/10">
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2.5 py-1 rounded-lg bg-graphite border border-white/10 text-xs font-medium text-zinc-300" data-i18n="proj_1_chip1">Transaksi Cepat</span>
+              <span class="px-2.5 py-1 rounded-lg bg-graphite border border-white/10 text-xs font-medium text-zinc-300" data-i18n="proj_1_chip2">Manajemen Stok</span>
+            </div>
+            <button
+              type="button"
+              onclick="openStandaloneLightbox('kasir.jpeg', getT('proj_1_title'), getT('proj_1_desc'))"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white text-platinum hover:text-obsidian text-xs font-bold transition-colors shrink-0"
+            >
+              <i class="fa-solid fa-eye"></i>
+              <span data-i18n="btn_preview_short">Pratinjau</span>
+            </button>
+          </div>
+        </article>
+
+        <!-- Project 2: Sistem Database -->
+        <article class="glass-panel tilt-card rounded-3xl overflow-hidden flex flex-col justify-between group" data-tilt>
+          <div>
+            <div
+              class="relative aspect-video bg-graphite overflow-hidden cursor-pointer"
+              onclick="openStandaloneLightbox('database.jpeg', getT('proj_2_title'), getT('proj_2_desc'))"
+            >
+              <img
+                src="database.jpeg"
+                alt="Sistem Database - database.jpeg"
+                onerror="handleImageFallback(this, 'database.jpeg', '800x450')"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-obsidian/85 via-obsidian/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-between p-4">
+                <span class="font-mono text-xs text-zinc-200 bg-obsidian/80 backdrop-blur border border-white/15 px-2.5 py-1 rounded-lg">
+                  database.jpeg
+                </span>
+                <span class="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white text-obsidian text-xs font-bold shadow-md">
+                  <i class="fa-solid fa-expand"></i>
+                  <span data-i18n="btn_preview">Preview Gambar</span>
+                </span>
+              </div>
+            </div>
+
+            <div class="p-6 space-y-3">
+              <div class="flex items-center justify-between gap-2">
+                <span class="px-3 py-1 rounded-full bg-white/10 border border-white/15 text-silver font-mono text-xs font-bold">
+                  RELATIONAL DATABASE
+                </span>
+                <i class="fa-solid fa-database text-silver text-lg"></i>
+              </div>
+
+              <h3 class="font-display text-xl sm:text-2xl font-bold text-platinum" data-i18n="proj_2_title">
+                Sistem Database
+              </h3>
+
+              <p class="text-zinc-400 text-sm leading-relaxed" data-i18n="proj_2_desc">
+                Perancangan arsitektur basis data relasional (ERD), normalisasi struktur tabel, relasi antar entitas, serta eksekusi query SQL untuk memastikan integritas, kecepatan akses, dan keamanan penyimpanan data.
+              </p>
+            </div>
+          </div>
+
+          <div class="px-6 pb-6 pt-2 flex items-center justify-between gap-3 border-t border-white/10">
+            <div class="flex flex-wrap gap-1.5">
+              <span class="px-2.5 py-1 rounded-lg bg-graphite border border-white/10 text-xs font-medium text-zinc-300" data-i18n="proj_2_chip1">SQL & ERD</span>
+              <span class="px-2.5 py-1 rounded-lg bg-graphite border border-white/10 text-xs font-medium text-zinc-300" data-i18n="proj_2_chip2">Integritas Data</span>
+            </div>
+            <button
+              type="button"
+              onclick="openStandaloneLightbox('database.jpeg', getT('proj_2_title'), getT('proj_2_desc'))"
+              class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white text-platinum hover:text-obsidian text-xs font-bold transition-colors shrink-0"
+            >
+              <i class="fa-solid fa-eye"></i>
+              <span data-i18n="btn_preview_short">Pratinjau</span>
+            </button>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- SKILL SAYA (TANPA PERSENTASE) -->
+    <section id="skills" class="scroll-mt-24 space-y-6">
+      <div>
+        <span class="font-mono text-xs font-bold uppercase tracking-widest text-metallic" data-i18n="skills_tag">03 // KOMPETENSI INTI</span>
+        <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-platinum mt-1" data-i18n="skills_title">Skill Saya</h2>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-charcoal/95 via-obsidian/90 to-graphite/90 space-y-5">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-white to-zinc-400 text-obsidian flex items-center justify-center text-xl shadow-md shadow-white/10">
+              <i class="fa-solid fa-microchip"></i>
+            </div>
+            <div>
+              <h3 class="font-display text-lg sm:text-xl font-bold text-platinum" data-i18n="skill_cat_tech">Keahlian Teknis (TJKT)</h3>
+              <p class="text-xs text-zinc-400" data-i18n="skill_cat_tech_sub">Infrastruktur Jaringan, Sistem & Basis Data</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2.5 pt-1">
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-network-wired text-silver"></i>
+              <span data-i18n="sk_t1">Administrasi Jaringan</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-diagram-project text-silver"></i>
+              <span data-i18n="sk_t2">Konfigurasi Router & Switch</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-database text-silver"></i>
+              <span data-i18n="sk_t3">Manajemen Database</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-cash-register text-silver"></i>
+              <span data-i18n="sk_t4">Pengembangan Sistem Kasir</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-screwdriver-wrench text-silver"></i>
+              <span data-i18n="sk_t5">Troubleshooting Hardware & Software</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-brands fa-linux text-silver"></i>
+              <span data-i18n="sk_t6">Linux & Server Dasar</span>
+            </span>
+          </div>
+        </div>
+
+        <div class="glass-panel rounded-3xl p-6 sm:p-8 bg-gradient-to-br from-charcoal/95 via-obsidian/90 to-graphite/90 space-y-5">
+          <div class="flex items-center gap-3.5">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-zinc-200 to-zinc-500 text-obsidian flex items-center justify-center text-xl shadow-md shadow-white/10">
+              <i class="fa-solid fa-medal"></i>
+            </div>
+            <div>
+              <h3 class="font-display text-lg sm:text-xl font-bold text-platinum" data-i18n="skill_cat_paski">Kepemimpinan & Paskibra</h3>
+              <p class="text-xs text-zinc-400" data-i18n="skill_cat_paski_sub">Karakter Kompetisi, Disiplin & Kerja Tim</p>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2.5 pt-1">
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-shield-halved text-silver"></i>
+              <span data-i18n="sk_p1">Kedisiplinan Tinggi</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-people-group text-silver"></i>
+              <span data-i18n="sk_p2">Kerja Sama Tim (Teamwork)</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-brain text-silver"></i>
+              <span data-i18n="sk_p3">Ketahanan Mental</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-flag text-silver"></i>
+              <span data-i18n="sk_p4">Kepemimpinan & Baris-Berbaris</span>
+            </span>
+
+            <span class="skill-pill inline-flex items-center gap-2 px-4 py-2.5 rounded-2xl bg-graphite/90 border border-white/15 text-platinum text-xs sm:text-sm font-semibold shadow-sm">
+              <i class="fa-solid fa-stopwatch text-silver"></i>
+              <span data-i18n="sk_p5">Manajemen Waktu Lomba</span>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SERTIFIKAT -->
+    <section id="certificates" class="scroll-mt-24 space-y-6">
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4">
+        <div>
+          <span class="font-mono text-xs font-bold uppercase tracking-widest text-metallic" data-i18n="certs_tag">04 // PRESTASI & PENGHARGAAN</span>
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold text-platinum mt-1" data-i18n="certs_title">Sertifikat</h2>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 p-1.5 rounded-2xl bg-charcoal/90 backdrop-blur border border-white/15 shadow-sm" role="tablist">
+          <button
+            type="button"
+            data-filter="all"
+            onclick="filterCertificates('all')"
+            class="cert-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all bg-gradient-to-r from-white to-zinc-300 text-obsidian shadow-sm"
+            data-i18n="tab_all"
+          >
+            Semua (12)
+          </button>
+          <button
+            type="button"
+            data-filter="main"
+            onclick="filterCertificates('main')"
+            class="cert-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all text-zinc-300 hover:bg-white/10 hover:text-white"
+            data-i18n="tab_main"
+          >
+            Sertifikat Utama (1)
+          </button>
+          <button
+            type="button"
+            data-filter="paskibra"
+            onclick="filterCertificates('paskibra')"
+            class="cert-filter-btn px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all text-zinc-300 hover:bg-white/10 hover:text-white"
+            data-i18n="tab_paski"
+          >
+            Lomba Paskibra (11)
+          </button>
+        </div>
+      </div>
+
+      <div id="certificates-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5"></div>
+    </section>
+
+    <!-- KONTAK PRIBADI -->
+    <section id="contact" class="scroll-mt-24">
+      <div class="rounded-3xl bg-gradient-to-br from-obsidian via-charcoal to-graphite p-6 sm:p-10 lg:p-12 text-white shadow-2xl relative overflow-hidden border border-white/15">
+        <div class="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-white/[0.04] blur-3xl pointer-events-none"></div>
+        <div class="absolute -bottom-24 -left-24 w-72 h-72 rounded-full bg-zinc-400/[0.04] blur-3xl pointer-events-none"></div>
+
+        <div class="relative z-10 max-w-4xl mx-auto space-y-8">
+          <div class="text-center space-y-2.5">
+            <span class="inline-block font-mono text-xs font-bold uppercase tracking-widest px-3.5 py-1 rounded-full bg-white/10 text-silver border border-white/15" data-i18n="contact_tag">
+              05 // HUBUNGI SAYA
+            </span>
+            <h2 class="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-platinum" data-i18n="contact_title">
+              Kontak Pribadi
+            </h2>
+            <p class="text-zinc-400 text-sm sm:text-base max-w-xl mx-auto" data-i18n="contact_desc">
+              Terbuka untuk silaturahmi, diskusi teknologi jaringan, maupun kolaborasi kegiatan. Hubungi saya melalui Instagram pribadi atau Email di bawah ini.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6">
+            <div class="p-5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-md border border-white/15 hover:border-white/35 transition-all flex items-center justify-between gap-3">
+              <a
+                href="https://www.instagram.com/anotherriiel?utm_source=ig_web_button_share_sheet&avpt=ZDNlZDc0MzIxNw=="
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center gap-4 min-w-0 flex-1 group"
+              >
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-zinc-300 to-white text-obsidian flex items-center justify-center text-2xl shrink-0 shadow-lg group-hover:scale-105 transition-transform">
+                  <i class="fa-brands fa-instagram"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="font-mono text-[11px] uppercase tracking-wider text-metallic" data-i18n="contact_ig_label">Instagram Pribadi</p>
+                  <p id="ig-handle-text" class="font-display font-bold text-base sm:text-lg text-platinum truncate group-hover:text-white transition-colors">
+                    @anotherriiel
+                  </p>
+                </div>
+              </a>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onclick="copyTextToClipboard('ig-handle-text', 'toast_ig_copied')"
+                  class="p-2.5 rounded-xl bg-white/10 hover:bg-white text-platinum hover:text-obsidian transition-colors"
+                  title="Salin Username Instagram"
+                >
+                  <i class="fa-regular fa-copy text-sm"></i>
+                </button>
+                <a
+                  href="https://www.instagram.com/anotherriiel?utm_source=ig_web_button_share_sheet&avpt=ZDNlZDc0MzIxNw=="
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="p-2.5 rounded-xl bg-white text-obsidian hover:bg-zinc-200 font-bold transition-colors"
+                  title="Buka Instagram"
+                >
+                  <i class="fa-solid fa-arrow-up-right-from-square text-sm"></i>
+                </a>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-white/[0.04] hover:bg-white/[0.07] backdrop-blur-md border border-white/15 hover:border-white/35 transition-all flex items-center justify-between gap-3">
+              <a
+                href="mailto:rbkaelv44@gmail.com"
+                class="flex items-center gap-4 min-w-0 flex-1 group"
+              >
+                <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-zinc-300 to-white text-obsidian flex items-center justify-center text-xl shrink-0 shadow-lg group-hover:scale-105 transition-transform">
+                  <i class="fa-solid fa-envelope"></i>
+                </div>
+                <div class="min-w-0">
+                  <p class="font-mono text-[11px] uppercase tracking-wider text-metallic" data-i18n="contact_email_label">Email Pribadi</p>
+                  <p id="email-address-text" class="font-display font-bold text-sm sm:text-base text-platinum truncate group-hover:text-white transition-colors">
+                    rbkaelv44@gmail.com
+                  </p>
+                </div>
+              </a>
+
+              <div class="flex items-center gap-2 shrink-0">
+                <button
+                  type="button"
+                  onclick="copyTextToClipboard('email-address-text', 'toast_email_copied')"
+                  class="p-2.5 rounded-xl bg-white/10 hover:bg-white text-platinum hover:text-obsidian transition-colors"
+                  title="Salin Alamat Email"
+                >
+                  <i class="fa-regular fa-copy text-sm"></i>
+                </button>
+                <a
+                  href="mailto:elvariaribka@gmail.com"
+                  class="p-2.5 rounded-xl bg-white text-obsidian hover:bg-zinc-200 font-bold transition-colors"
+                  title="Kirim Email"
+                >
+                  <i class="fa-solid fa-paper-plane text-sm"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="relative z-10 border-t border-white/10 bg-obsidian/85 backdrop-blur-md py-6 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-xs sm:text-sm text-zinc-400">
+      <p class="font-medium">
+        &copy; <span id="year-now"></span> <strong class="text-platinum">ELVARIA RIBKA</strong>. <span data-i18n="footer_rights">Hak Cipta Dilindungi.</span>
+      </p>
+      <p class="font-mono text-xs text-silver font-semibold">
+        SMKN 1 BLITAR • TJKT • PASKIBRA
+      </p>
+    </div>
+  </footer>
+
+  <!-- LIGHTBOX MODAL -->
+  <div
+    id="lightbox-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center bg-black/90 backdrop-blur-md p-3 sm:p-6"
+    onclick="handleLightboxBackdrop(event)"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div
+      class="relative bg-charcoal rounded-3xl max-w-4xl w-full overflow-hidden shadow-2xl border border-white/20 flex flex-col"
+      onclick="event.stopPropagation()"
+    >
+      <div class="flex items-center justify-between px-5 sm:px-6 py-4 border-b border-white/10 bg-gradient-to-r from-obsidian to-graphite">
+        <div class="min-w-0 pr-3">
+          <div class="flex items-center gap-2">
+            <span id="lb-counter" class="hidden font-mono text-xs font-bold px-2.5 py-0.5 rounded-full bg-white text-obsidian">
+              1 / 12
+            </span>
+            <h3 id="lb-title" class="font-display font-bold text-platinum text-base sm:text-lg truncate">
+              Judul Preview
+            </h3>
+          </div>
+          <p id="lb-subtitle" class="text-xs text-zinc-400 truncate mt-0.5">
+            Deskripsi singkat
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onclick="closeLightbox()"
+          class="w-10 h-10 rounded-full bg-graphite border border-white/15 text-platinum hover:bg-white hover:text-obsidian flex items-center justify-center transition-colors shrink-0 shadow-sm"
+          aria-label="Tutup Lightbox"
+        >
+          <i class="fa-solid fa-xmark text-base"></i>
+        </button>
+      </div>
+
+      <div class="relative bg-obsidian flex items-center justify-center min-h-[300px] sm:min-h-[420px] max-h-[72vh] p-4 sm:p-8 select-none">
+        <button
+          id="lb-prev-btn"
+          type="button"
+          onclick="navigateLightbox(-1)"
+          class="hidden absolute left-3 sm:left-5 z-20 w-11 h-11 rounded-full bg-charcoal/90 border border-white/20 hover:bg-white text-platinum hover:text-obsidian shadow-lg flex items-center justify-center transition-all"
+          aria-label="Sebelumnya"
+        >
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <img
+          id="lb-image"
+          src=""
+          alt="Full Preview"
+          class="max-h-[64vh] max-w-full w-auto rounded-2xl shadow-2xl object-contain transition-opacity duration-200"
+        />
+
+        <button
+          id="lb-next-btn"
+          type="button"
+          onclick="navigateLightbox(1)"
+          class="hidden absolute right-3 sm:right-5 z-20 w-11 h-11 rounded-full bg-charcoal/90 border border-white/20 hover:bg-white text-platinum hover:text-obsidian shadow-lg flex items-center justify-center transition-all"
+          aria-label="Berikutnya"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+      </div>
+
+      <div id="lb-footer-bar" class="px-5 py-3 bg-obsidian border-t border-white/10 flex items-center justify-between text-xs text-zinc-400">
+        <span id="lb-filename" class="font-mono font-semibold text-silver">file.jpg</span>
+        <span id="lb-kbd-hint" class="hidden sm:inline-flex items-center gap-1.5 text-zinc-400">
+          <kbd class="px-1.5 py-0.5 bg-graphite border border-white/15 text-zinc-200 rounded text-[10px] font-mono">←</kbd>
+          <kbd class="px-1.5 py-0.5 bg-graphite border border-white/15 text-zinc-200 rounded text-[10px] font-mono">→</kbd>
+          <span data-i18n="lb_nav_hint">Geser Sertifikat</span> •
+          <kbd class="px-1.5 py-0.5 bg-graphite border border-white/15 text-zinc-200 rounded text-[10px] font-mono">ESC</kbd>
+          <span data-i18n="lb_esc_hint">Tutup</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div
+    id="toast-box"
+    class="fixed bottom-5 right-5 z-50 translate-y-24 opacity-0 pointer-events-none transition-all duration-300 bg-charcoal text-platinum border border-white/25 px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 text-xs sm:text-sm font-semibold"
+  >
+    <span class="w-6 h-6 rounded-full bg-white/15 text-white flex items-center justify-center">
+      <i class="fa-solid fa-check"></i>
+    </span>
+    <span id="toast-msg">Berhasil disalin!</span>
+  </div>
+
+  <!-- External Application Script -->
+  <script src="script.js"></script>
+</body>
+</html>
